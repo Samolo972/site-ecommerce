@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container">
+		<a class="navbar-brand" href="#">Samolo_Shop</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="{{path('app_accueil')}}">Accueil
+						<span class="sr-only">(current)</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('app_home_page')}}">Produits</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Contact</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{path('cart_index')}}">
+						<i class="fas fa-shopping-cart"></i>
+						Panier</a>
+				</li>
+				{% if not app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('app_login')}}">
+							<i class="fas fa-user"></i>
+							Connexion</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{path('app_register')}}">
+							<i class="fas fa-user"></i>
+							Inscription
+						</a>
+					{% endif %}
+
+					{% if app.user %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{path('app_logout')}}">
+								<i class="fas fa-user"></i>
+								déconnexion</a>
+						</li>
+					{% endif %}
+				</li>
+			</li>
+		</ul>
+	</li>
+</div>
+{% if app.user %}
+	<div class="dropdown">
+		<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Connecté en tant que
+			{{app.user.name}}
+		</button>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			<a class="dropdown-item" href="{{path('app_detail_user')}}">Mes informations</a>
+			{% if is_granted('ROLE_ADMIN') %}
+				<a class="dropdown-item" href="{{path('admin')}}">Panel d'adminstration</a>
+			{% endif %}
+			<a class="dropdown-item" href="#">Mes commandes/Achats</a>
+		</div>
+	</div>
+{% endif %}</div></nav>

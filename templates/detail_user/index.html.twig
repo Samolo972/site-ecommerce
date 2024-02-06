@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes informations{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">Mes Informations</h2>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th>Nom :</th>
+                            <td>{{ app.user.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prénom :</th>
+                            <td>{{ app.user.firstName }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email :</th>
+                            <td>{{ app.user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Date de Naissance :</th>
+                            <td>{{ app.user.dateBirth|date('d/m/Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone :</th>
+                            <td>{{ app.user.numberPhone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Mon adresse :</th>
+                            <td>{{ app.user.address }}</td>
+                        </tr>
+                        <!-- Ajoutez d'autres champs si nécessaire -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

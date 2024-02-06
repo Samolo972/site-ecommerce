@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ detail.name }} - Détails du Produit
+{% endblock %}
+
+{% block body %}
+    <!-- Section des détails du produit -->
+    <section class="product-details">
+        <div class="container">
+            <div class="row">
+                <!-- Colonne de l'image du produit -->
+                <div class="col-md-6">
+                    {% if detail.imageName %}
+                        <img src="{{ vich_uploader_asset(detail, 'imageFile') }}" alt="{{ detail.name }}" class="img-fluid" style="max-width: 100%; height: auto; max-height: 400px;">
+                    {% endif %}
+                </div>
+                <!-- Colonne des informations du produit -->
+                <div class="col-md-6">
+                    <h2>{{ detail.name }}</h2>
+                    <p>{{ detail.description|striptags|raw }}</p> <!-- Utilisez |raw pour afficher du HTML brut si nécessaire -->
+                    <p>
+                        <strong>Prix:</strong> {{ (detail.price / 100)|number_format(2, ',', '.') }} €
+                    </p>
+                    <p>
+                        <strong>Disponibilité:</strong>
+                        {% if detail.isAvaible %}
+                            <span class="text-success">En stock</span>
+                        {% else %}
+                            <span class="text-danger">Épuisé</span>
+                        {% endif %}
+                    </p>
+                    <a href="{{ path('cart_add', {'id': detail.id}) }}" class="btn btn-primary">Ajouter au Panier</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

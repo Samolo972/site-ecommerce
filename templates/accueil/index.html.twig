@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil
+{% endblock %}
+
+{% block body %}
+	<div
+		class="container mt-5">
+		<!-- Bannière -->
+		<div class="jumbotron text-center">
+			<h1>Bienvenue sur Mon Site E-commerce</h1>
+			<p>Découvrez notre sélection de produits de qualité.</p>
+		</div>
+
+		<!-- Liste de fonctionnalités -->
+		<div class="row">
+			<div class="col-md-4">
+				<div class="text-center">
+					<i class="fas fa-shipping-fast fa-3x mb-3"></i>
+					<h3>Livraison Rapide</h3>
+					<p>Nous livrons rapidement vos commandes à votre porte.</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="text-center">
+					<i class="fas fa-credit-card fa-3x mb-3"></i>
+					<h3>Paiement Sécurisé</h3>
+					<p>Vos paiements sont sécurisés et protégés.</p>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="text-center">
+					<i class="fas fa-users fa-3x mb-3"></i>
+					<h3>Service Client</h3>
+					<p>Notre équipe de service client est là pour vous aider.</p>
+				</div>
+			</div>
+			<a href="boutique.html" class="btn btn-primary">Voir la Boutique</a>
+		</div>
+	</div>
+{% endblock %}

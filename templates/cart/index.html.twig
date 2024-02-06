@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block body %}
+    {% if cart|length == 0 %}
+        <div id="panierVide" class="text-center">
+            <p>Votre panier est actuellement vide.</p>
+            <a href="{{ path('app_home_page') }}" class="btn btn-primary">Retourner à la boutique</a>
+        </div>
+    {% else %}
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Image du produit</th> <!-- Ajout de l'en-tête de l'image -->
+                    <th>Nom du produit</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set total = null %}
+                {% for item in cart %}
+                    {% set total = total + (item.product.price * item.quantity) / 100 %}
+                    <tr>
+                        <td>
+                            <!-- Affichez l'image du produit -->
+                            <img src="{{ vich_uploader_asset(item.product ,'imageFile') }}" alt="{{ item.product.name }}" class="product-image" style="width: 100px; height: 100px;">
+                        </td>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ (item.product.price / 100)|number_format(2, ',', '.') }} €</td>
+                        <td>
+                            <div class="input-group">
+                                <a href="{{ path('decrease_cart', {id: item.product.id}) }}" class="btn btn-decrement"><i class="fas fa-minus"></i></a>
+                                <input type="number" value="{{ item.quantity }}" class="input-number" style="width: 60px; text-align: center;" readonly>
+                                <a href="{{ path('cart_add', {id: item.product.id}) }}" class="btn btn-increment"><i class="fas fa-plus"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{{ path('cart_remove', {id: item.product.id}) }}" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="text-right">
+            <h4>Total : {{ total|number_format(2, ',', '.') }} €</h4>
+            <a href="{{ path('order_create') }}" class="btn btn-primary">Valider le panier</a>
+            <a href="{{ path('cart_removeAll') }}" class="btn btn-danger">Supprimer tout le panier</a>
+        </div>
+        <script src="{{ asset('js/buttonCart.js') }}"></script>
+    {% endif %}
+{% endblock %}
