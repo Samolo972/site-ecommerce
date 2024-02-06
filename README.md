@@ -34,5 +34,4 @@ Pour utiliser ce projet sur votre machine locale, suivez les étapes d'installat
 
 [Samuel JOSEPH MYRTIL]
 
-## Licence
 
