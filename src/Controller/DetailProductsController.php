@@ -10,11 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class DetailProductsController extends AbstractController
 {
     // AFFICHER LES DETAILS DES HOTELS SELON ID 
-    #[Route('/product/{id}', name: 'products.detail', methods: ['GET', 'POST'])]
+    #[Route('/product/{id}', name: 'products.detail', methods: ['GET'])]
     public function detail(
         $id,
         ProductRepository $repo,
-    ): Response {
+
+    ): Response { 
         // Utilisez la méthode find pour récupérer un élément par son ID
         $detail = $repo->find($id);
 

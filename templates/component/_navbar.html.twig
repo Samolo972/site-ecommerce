@@ -58,7 +58,7 @@
 			{% if is_granted('ROLE_ADMIN') %}
 				<a class="dropdown-item" href="{{path('admin')}}">Panel d'adminstration</a>
 			{% endif %}
-			<a class="dropdown-item" href="#">Mes commandes/Achats</a>
+			<a class="dropdown-item" href="{{ path('order_view') }}">Mes commandes/Achats</a>
 		</div>
 	</div>
 {% endif %}</div></nav>

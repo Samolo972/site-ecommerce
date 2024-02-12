@@ -5,82 +5,59 @@
 {% endblock %}
 
 {% block body %}
-<div
-	class="container mt-5">
-	<!-- Fil d'Ariane -->
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item active">
-				<a href="{{ path('app_accueil') }}">Accueil</a>
-			</li>
-			<li class="breadcrumb-item active">
-				<a href="{{ path('app_home_page') }}">Boutique</a>
-			</li>
-			<li class="breadcrumb-item active" aria-current="page">Passer une commande</li>
-		</ol>
-	</nav>
+	<div
+		class="container mt-5">
+		<!-- Fil d'Ariane -->
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item active">
+					<a href="{{ path('app_accueil') }}">Accueil</a>
+				</li>
+				<li class="breadcrumb-item active">
+					<a href="{{ path('app_home_page') }}">Boutique</a>
+				</li>
+				<li class="breadcrumb-item active" aria-current="page">Passer une commande</li>
+			</ol>
+		</nav>
 
-	<h1>Passer une commande</h1>
+		<h1>Passer une commande</h1>
 	</br>
-{{ form_start (form, {'action': path('order_verify')}) }}
+	{{ form_start (form, {'action': path('order_verify')}) }}
 
 	<!-- Les détails d'expéditeur -->
 	<div class="expediteur-details">
 		<h2>Les détails d'expéditeur</h2>
 		<p>Si vous n'avez pas encore ajouté d'adresse, veuillez le faire dans votre espace compte.</p>
 	</div>
-	</br>
-	<!-- Choisissez votre adresse de livraison -->
-	<div class="adresse-livraison">
-		<h3>Choisissez votre adresse de livraison</h3>
-		{{ form_row(form.address)|replace({'[-br]': '</br>'})|raw }}
-	</div>
 </br>
-	<!-- Choisissez votre adresse de transporteur -->
-	<div class="">
-		<h3>Choisissez votre adresse de transporteur</h3>
-		{{ form_row(form.transporter)|replace({'[-br]': '</br>'})|raw }}
-	</div>
-
-</div>
-<div class="container mt-5">
-	<h1>Récapitulatif de commande</h1>
-	{% set total = null %}
-	<!-- Produits commandés -->
-	<section class="produits">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Nom du produit</th>
-					<th>Prix unitaire</th>
-					<th>Quantité</th>
-				</tr>
-			</thead>
-		</thead>
-		<tbody>
-			{% for product in recapCart %}
-			{% set total = total + (product.product.price * product.quantity) %}
-				<tr>
-					<td>{{product.product.name}}</td>
-					<td>{{(product.product.price / 100)|number_format(2, ',', '.')}}€</td>
-					<td>{{product.quantity}}</td>
-				</tr>
-			{% endfor %}
-			</tbody>
-		</tbody>
-	</table>
-</section>
-<section class="total">
-	<h2>Total de la commande</h2>
-	<p>Sous-total
-	</p>
-	<p>Frais de livraison :
-	</p>
-	<h1>Total : <strong>{{(total / 100)|number_format(2, ',', '.')}} €</strong></h1>
-	   <button class="btn btn-primary" type="submit">Valider votre commande</button>
-</section>
-{{ form_end (form) }}
-
-{% endblock %}
-
-
+<!-- Choisissez votre adresse de livraison -->
+<div class="adresse-livraison">
+	<h3>Choisissez votre adresse de livraison</h3>
+	<a href="{{ path('add_address')}}" class="btn btn-primary">
+		<i class="bi bi-plus"></i>
+		Ajouter une adresse de livraison
+	</a>
+	{{ form_row(form.address)|replace({'[-br]': '</br>'})|raw }}
+</div></br><!-- Choisissez votre adresse de transporteur --><div class="">
+<h3>Choisissez votre adresse de transporteur</h3>
+{{ form_row(form.transporter)|replace({'[-br]': '</br>'})|raw }}</div></div><div class="container mt-5"><h1>Récapitulatif de commande</h1>{% set total = null %}<!-- Produits commandés --><section class="produits">
+<table class="table">
+	<thead>
+		<tr>
+			<th>Nom du produit</th>
+			<th>Prix unitaire</th>
+			<th>Quantité</th>
+		</tr>
+	</thead>
+</thead>
+<tbody>
+	{% for product in recapCart %}
+		{% set total = total + (product.product.price * product.quantity) %}
+		<tr>
+			<td>{{product.product.name}}</td>
+			<td>{{(product.product.price / 100)|number_format(2, ',', '.')}}€</td>
+			<td>{{product.quantity}}</td>
+		</tr>
+	{% endfor %}
+</tbody></tbody></table></section><section class="total"><h2>Total de la commande</h2><p>Sous-total</p><p>Frais de livraison :</p><h1>Total :<strong>{{(total / 100)|number_format(2, ',', '.')}}
+€</strong></h1><button class="btn btn-primary" type="submit">Valider votre commande</button></section>{{ form_end (form) }}{% endblock %}

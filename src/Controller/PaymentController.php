@@ -19,7 +19,6 @@ class PaymentController extends AbstractController
 {
     private EntityManagerInterface $em;
     private UrlGeneratorInterface $generator;
-
     private CartService $cartService;
 
     public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $generator , CartService $cartService)
@@ -33,8 +32,6 @@ class PaymentController extends AbstractController
     #[Route('/order/create-session-stripe/{reference}', name: 'payment_stripe')]
     public function stripeCheckout($reference): RedirectResponse
     {
-
-
         $productStripe = [];
         $order = $this->em->getRepository(Order::class)->findOneBy(['reference' => $reference]);
 
@@ -99,8 +96,11 @@ class PaymentController extends AbstractController
         ]);
 
         $order->setStripeSessionId($checkout_session->id);
-
-
+        
+        if($checkout_session['success_url']){
+            $order->setIsPaid(1); 
+        }
+    
 
         $this->em->flush();
 
@@ -109,14 +109,16 @@ class PaymentController extends AbstractController
         return new RedirectResponse($checkout_session->url);
     }
 
+
     #[Route('/order/success/{reference}', name: 'payment_success')]
-    public function stripeSucess($reference, CartService $cartService): Response
-    {
+    public function stripeSucess(Order $order): Response
+    {   
         return $this->render('order/success.html.twig', []);
+
     }
 
     #[Route('/order/error/{reference}', name: 'payment_error')]
-    public function stripeError($reference, CartService $cartService): Response
+    public function stripeError(): Response
     {
         return $this->render('order/error.html.twig', []);
     }

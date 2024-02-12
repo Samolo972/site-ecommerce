@@ -2,11 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Address;
 use App\Entity\Order;
 use App\Entity\RecapDetails;
+use App\Entity\User;
+use App\Form\AdressesType;
 use App\Form\OrderType;
+use App\Repository\OrderRepository;
+use App\Repository\RecapDetailsRepository;
+use App\Repository\UserRepository;
 use App\Service\CartService;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -98,12 +103,66 @@ class OrderController extends AbstractController
                 'recapCart' => $cartService->getTotal(),
                 'transporter' => $transporter,
                 'delivery' => $deliveryForOrder,
-                'reference'=> $order->getReference()
+                'reference' => $order->getReference()
             ]);
         }
 
 
         return $this->redirectToRoute('cart_index');
     }
-    
+
+
+    #[Route('/order/my-order', name: 'order_view', methods: ['GET'])]
+    public function OrderView(
+        OrderRepository $order,
+        UserRepository $user,
+        RecapDetailsRepository $recapDetailsRepository
+    ): Response {
+        if (!$this->getUser()) {
+            $this->redirectToRoute('app_login');
+        }
+        if ($this->getUser() != $user) {
+            $this->redirectToRoute('app_login');
+        }
+
+        $orderUser = $order->findByUser($this->getUser());
+
+
+
+
+
+        return $this->render('order/view.html.twig', [
+            'order' => $orderUser,
+        ]);
+    }
+
+
+    #[Route('/add/address', name: 'add_address')]
+    public function AddressAdd(Request $request): Response
+    {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $address = new Address();
+        $address->setUser($user); // Associez directement l'utilisateur à l'adresse ici
+
+        $form = $this->createForm(AdressesType::class, $address);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->em->persist($address);
+            $this->em->flush();
+
+            $this->addFlash('success', "Votre adresse de livraison a été bien ajoutée.");
+
+            return $this->redirectToRoute('order_create');
+        }
+
+        return $this->render('order/addressAdd.html.twig', [
+            'address' => $form->createView(),
+        ]);
+    }
 }

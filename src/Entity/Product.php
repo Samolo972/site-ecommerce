@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -50,6 +51,8 @@ class Product
     #[ORM\Column(nullable: true)]
     private ?int $imageSize = null;
 
+   
+
 
 
     public function __construct()
@@ -57,6 +60,8 @@ class Product
         $this->createdAt = new \DateTimeImmutable;
         $this->updatedAt = new \DateTimeImmutable;
     }
+
+ 
 
     #[ORM\PreUpdate]
     public function preUpdate()
@@ -196,6 +201,8 @@ public function getImageFile(): ?File
     {
         return $this->imageSize;
     }
+
+  
 
 
 }

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Mes commandes
+{% endblock %}
+
+{% block body %}
+	<h2 class="mb-4">Mes Commandes</h2>
+	<div class="orders">
+		{% for orders in order %}
+			<div class="order card mb-3">
+				<div class="card-header">
+					Commande #{{ orders.reference }}
+					-
+					{{ orders.createdAt|date('d/m/Y H:i:s', 'Europe/Paris') }}
+				</div>
+				<div class="card-body">
+					<p>Statut :
+						<strong>
+							{% if orders.isPaid == 1 %}
+								Payé
+							{% else %}
+								Non payé
+							{% endif %}
+						</strong>
+					</p>
+					<p>Le transporteur :
+						{{ orders.transporterName|replace({'[-br]': '<br>'})|raw }}</p>
+					<p>L'adresse de livraison :
+						{{ orders.delivery|replace({'[-br]': '<br>'})|raw }}</p>
+					<p>La méthode de paiement :
+						{{ orders.method }}</p>
+					{# <h4>Détails de la Commande :</h4>
+					            <ul>
+					            {{ dump(order.RecapDetails) }}
+					                {% for detail in order.recapDetails %}
+					                    <li>
+					                        {{ detail.product }} - Quantité : {{ detail.quantity }} - Prix unitaire : {{ detail.price }} € - Sous-total : {{ detail.totalRecap }} €
+					                    </li>
+					                {% endfor %}
+					            </ul> #}
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<p>Vous n'avez pas de commandes.</p>
+	{% endfor %}
+</div>{% endblock %}
