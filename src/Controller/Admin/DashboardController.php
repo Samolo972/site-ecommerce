@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Entity\Product;
 use App\Entity\Transporter;
 use App\Entity\User;
@@ -29,8 +30,9 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         
-        yield MenuItem::linkToCrud('Les produtis', 'fas fa-list', Product::class);
+        yield MenuItem::linkToCrud('Les produits', 'fas fa-list', Product::class);
         yield MenuItem::linkToCrud('Les utilisateurs', 'fas fa-user', User::class);
         yield MenuItem::linkToCrud('Les transporteurs', 'fas fa-truck', Transporter::class);
+        yield MenuItem::linkToCrud('Les catégories', 'fas fa-list', Category::class);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -29,6 +30,9 @@ class ProductCrudController extends AbstractCrudController
             MoneyField::new('price')
                 ->setCurrency('EUR'),
             IntegerField::new('quantity'),
+            
+            AssociationField::new('category')
+                ->hideOnIndex(),
 
 
             TextareaField::new('imageFile')

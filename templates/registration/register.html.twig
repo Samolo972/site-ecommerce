@@ -39,7 +39,7 @@
 	{% endfor %}
 	{{ form_row(registrationForm.agreeTerms) }}
 
-
 	<button type="submit" class="btn btn-primary mt-3">Register</button>
 	{{ form_end(registrationForm) }}
+	<a href="{{path('app_forgot_password_request')}}" type="submit" class="btn btn-danger mt-3">password forgot</a>
 {% endblock %}

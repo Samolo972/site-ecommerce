@@ -26,6 +26,7 @@ Notre site de commerce électronique offre un ensemble de fonctionnalités essen
 - **Interface d'Administration** : L'équipe de gestion peut facilement gérer les données du site via l'interface d'administration EasyAdmin.
 - **Rendu Convivial** : Les pages du site sont conviviales, réactives et esthétiquement agréables grâce à Twig-Pack.
 
+## En cours de conception
 ## Installation et Utilisation
 
 Pour utiliser ce projet sur votre machine locale, suivez les étapes d'installation décrites dans la section "Installation" du fichier README.md. Une fois le projet installé, vous pourrez l'exécuter localement et explorer toutes ses fonctionnalités.

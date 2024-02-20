@@ -1,38 +1,75 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ detail.name }} - Détails du Produit
+	{{ detail.name }}
+	- Détails du Produit
 {% endblock %}
 
 {% block body %}
-    <!-- Section des détails du produit -->
-    <section class="product-details">
-        <div class="container">
-            <div class="row">
-                <!-- Colonne de l'image du produit -->
-                <div class="col-md-6">
-                    {% if detail.imageName %}
-                        <img src="{{ vich_uploader_asset(detail, 'imageFile') }}" alt="{{ detail.name }}" class="img-fluid" style="max-width: 100%; height: auto; max-height: 400px;">
-                    {% endif %}
-                </div>
-                <!-- Colonne des informations du produit -->
-                <div class="col-md-6">
-                    <h2>{{ detail.name }}</h2>
-                    <p>{{ detail.description|striptags|raw }}</p> <!-- Utilisez |raw pour afficher du HTML brut si nécessaire -->
-                    <p>
-                        <strong>Prix:</strong> {{ (detail.price / 100)|number_format(2, ',', '.') }} €
-                    </p>
-                    <p>
-                        <strong>Disponibilité:</strong>
-                        {% if detail.isAvaible %}
-                            <span class="text-success">En stock</span>
-                        {% else %}
-                            <span class="text-danger">Épuisé</span>
-                        {% endif %}
-                    </p>
-                    <a href="{{ path('cart_add', {'id': detail.id}) }}" class="btn btn-primary">Ajouter au Panier</a>
-                </div>
-            </div>
-        </div>
-    </section>
+	<!-- Section des détails du produit -->
+	<section class="product-details">
+		<div class="container">
+			<div
+				class="row">
+				<!-- Colonne de l'image du produit -->
+				<div class="col-md-6">
+					{% if detail.imageName %}
+						<img src="{{ vich_uploader_asset(detail, 'imageFile') }}" alt="{{ detail.name }}" class="img-fluid" style="max-width: 100%; height: auto; max-height: 400px;">
+					{% endif %}
+				</div>
+				<!-- Colonne des informations du produit -->
+				<div class="col-md-6">
+					<h2>{{ detail.name }}</h2>
+					<p>{{ detail.description|striptags|raw }}</p>
+					<!-- Utilisez |raw pour afficher du HTML brut si nécessaire -->
+					<p>
+						<strong>Prix:</strong>
+						{{ (detail.price / 100)|number_format(2, ',', '.') }}
+						€
+					</p>
+					<p>
+						<strong>Disponibilité:</strong>
+						{% if detail.isAvaible %}
+							<span class="text-success">En stock</span>
+						{% else %}
+							<span class="text-danger">Épuisé</span>
+						{% endif %}
+					</p>
+					<a href="{{ path('cart_add', {'id': detail.id} ) }}" class="btn btn-primary">Ajouter au Panier</a>
+					<a href="{{ path('products_comment', {'id': detail.id} ) }}" class="btn btn-secondary">Ajouter un commentaire</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Ligne de démarcation -->
+	<hr>
+
+	<!-- Section des commentaires -->
+	<section class="comments">
+		<div class="container">
+			<h1>Les commentaires</h1>
+			{% for comment in detail.comment %}
+				<div class="comment mt-4 text-justify float-left border p-3">
+					<h4>{{ comment.user.name }}</h4>
+					<span class="text-muted">{{ comment.createdAt|date('d/m/Y H:i') }}</span>
+					<p class="mt-2">{{ comment.content }}</p>
+					<p>
+						{% for i in 1..5 %}
+							{% if i <= comment.rating %}
+								⭐️
+							{% else %}
+								☆
+							{% endif %}
+						{% endfor %}
+					</p>
+					p
+				</div>
+
+			{% endfor %}
+		</div>
+	</section>
+	<div class="navigation d-flex justify-content-center">
+		{{ knp_pagination_render (pagination) }}
+	</div>
 {% endblock %}
