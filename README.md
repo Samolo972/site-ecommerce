@@ -1,4 +1,4 @@
-# Projet Informatique : Site de Commerce Électronique avec Symfony 6
+# Projet Informatique : Site de E-commerce avec Symfony 6
 
 ## Description
 
@@ -15,6 +15,7 @@ Pour mener à bien ce projet, nous avons mobilisé un ensemble de compétences e
 - **HTML, CSS, JavaScript** : Pour le développement frontend et l'interaction utilisateur.
 - **Sécurité** : Mise en place de mesures de sécurité pour protéger les données des utilisateurs.
 - **Stripe** : Mise en place de l'API de stripe pour facilité les paiement en ligne
+  **KNP_PAGINATOR** Mise en place d'une pagination 
 
 ## Fonctionnalités Clés
 
