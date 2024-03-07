@@ -30,8 +30,8 @@ Notre site de commerce électronique offre un ensemble de fonctionnalités essen
 ## En cours de conception
 ## Installation et Utilisation
 
-Pour utiliser ce projet sur votre machine locale, suivez les étapes d'installation décrites dans la section "Installation" du fichier README.md. Une fois le projet installé, vous pourrez l'exécuter localement et explorer toutes ses fonctionnalités.
-
+utiliser le serveur interne de symfony et une base de données avec docker ou xamp , mamp ou Lamp
+Puis faites un composer install
 ## Auteur
 
 [Samuel JOSEPH MYRTIL]
