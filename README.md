@@ -1,5 +1,10 @@
 # Projet Informatique : Site de E-commerce avec Symfony 6
 
+[![Regarde la vidéo ](https://img.youtube.com/vi/https://www.youtube.com/watch?si=b4nadphmte26FKNR&v=G4trEcEiNDE&feature=youtu.be/maxresdefault.jpg)](https://www.youtube.com/watch?si=b4nadphmte26FKNR&v=G4trEcEiNDE&feature=youtu.be)
+
+<<
+
+
 ## Description
 
 Notre projet informatique est un site de commerce développé avec Symfony 6, une technologie robuste et puissante pour la création d'applications web. Ce projet vise améliorer/apprendre/renforcer mes compétences en symfony
